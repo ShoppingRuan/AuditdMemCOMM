@@ -1,0 +1,19 @@
+
+module auditdwatch 1.0;
+
+require {
+	type auditd_t;
+	type tmpfs_t;
+	class shm create;
+	class shm { unix_read create unix_write };
+	class shm associate;
+	class shm { read write };
+	class file { read write };
+}
+
+#============= auditd_t ==============
+allow auditd_t self:shm create;
+allow auditd_t self:shm { unix_read create unix_write };
+allow auditd_t self:shm associate;
+allow auditd_t self:shm { read write };
+allow auditd_t tmpfs_t:file { read write };
